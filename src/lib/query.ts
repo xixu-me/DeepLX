@@ -325,6 +325,18 @@ async function query(
           const response = await fetch(endpoint, {
             headers: {
               "Content-Type": "application/json; charset=utf-8",
+              Accept: "*/*",
+              "Accept-Language": "en-US,en;q=0.9",
+              "Accept-Encoding": "gzip, deflate, br",
+              "Cache-Control": "no-cache",
+              Origin: "https://www.deepl.com",
+              Connection: "keep-alive",
+              Referer: "https://www.deepl.com/",
+              "Sec-Fetch-Dest": "empty",
+              "Sec-Fetch-Mode": "cors",
+              "Sec-Fetch-Site": "same-site",
+              "User-Agent":
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0",
               ...fingerprint,
               ...config?.customHeader,
             },
@@ -338,6 +350,32 @@ async function query(
           // If we get a 400 error, log the request body for debugging
           if (!response.ok && response.status === 400) {
             console.error(`400 error received. Request body was:`, requestBody);
+          }
+
+          // Check for rate limit error specifically
+          if (!response.ok && response.status === 429) {
+            const error = new Error(
+              "Too many requests, your IP has been blocked by DeepL temporarily, please don't request it frequently in a short time"
+            );
+            (error as any).status = 429;
+            throw error;
+          }
+
+          // Check for other error status codes (general non-200 check)
+          if (!response.ok) {
+            let errorMessage = `Request failed with status code: ${response.status}`;
+            try {
+              const errorText = await response.text();
+              if (errorText) {
+                errorMessage += ` - ${errorText}`;
+              }
+            } catch {
+              // Ignore error when reading response body
+            }
+
+            const error = new Error(errorMessage);
+            (error as any).status = response.status;
+            throw error;
           }
 
           return response;
