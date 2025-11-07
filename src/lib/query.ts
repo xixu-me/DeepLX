@@ -324,11 +324,10 @@ async function query(
 
           const response = await fetch(endpoint, {
             headers: {
-              "Content-Type": "application/json; charset=utf-8",
+              "Content-Type": "application/json",
               Accept: "*/*",
               "Accept-Language": "en-US,en;q=0.9",
-              "Accept-Encoding": "gzip, deflate, br",
-              "Cache-Control": "no-cache",
+              "Accept-Encoding": "gzip, deflate, br, zstd",
               Origin: "https://www.deepl.com",
               Connection: "keep-alive",
               Referer: "https://www.deepl.com/",
@@ -337,8 +336,8 @@ async function query(
               "Sec-Fetch-Site": "same-site",
               "User-Agent":
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0",
-              ...fingerprint,
-              ...config?.customHeader,
+              // ...fingerprint,
+              // ...config?.customHeader,
             },
             method: "POST",
             body: requestBody,
