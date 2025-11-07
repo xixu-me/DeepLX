@@ -68,18 +68,23 @@ export async function selectProxy(env: Env): Promise<ProxyEndpoint | null> {
 
 /**
  * Generate realistic browser fingerprint headers
- * Creates randomized headers to mimic real browser requests
+ * Creates randomized headers to mimic real browser requests and prevent 503 errors
+ * Enhanced with comprehensive headers to bypass DeepL's bot detection
  * @returns Record<string, string> - Object containing HTTP headers
  */
 export function generateBrowserFingerprint(): Record<string, string> {
   return {
     "User-Agent": USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)],
+    Accept: "*/*",
     "Accept-Language":
       ACCEPT_LANGUAGES[Math.floor(Math.random() * ACCEPT_LANGUAGES.length)],
-    Accept: "application/json, text/plain, */*",
-    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Encoding": "gzip, deflate, br, zstd",
+    Origin: "https://www.deepl.com",
+    Referer: "https://www.deepl.com/",
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-site",
     DNT: "1",
     Connection: "keep-alive",
-    "Upgrade-Insecure-Requests": "1",
   };
 }

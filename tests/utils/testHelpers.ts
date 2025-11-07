@@ -186,12 +186,6 @@ export function createTestEnvironment() {
   const env: Env = {
     CACHE_KV: cacheKV as any,
     RATE_LIMIT_KV: rateLimitKV as any,
-
-            { status: 200 }
-          )
-        ),
-      }),
-    } as any,
     ANALYTICS: {
       writeDataPoint: jest.fn(),
     } as any,
