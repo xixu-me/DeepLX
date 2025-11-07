@@ -3,7 +3,6 @@
 ***[English](README.md)***
 
 [![许可证](https://img.shields.io/github/license/xixu-me/deeplx)](#-许可证)
-[![部署状态](https://img.shields.io/website?url=https://dplx.xi-xu.me/deepl&label=在线服务)](#-在线服务)
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange?logo=cloudflare)](#-自部署)
 
 目前 [DeepLX](https://github.com/OwO-Network/DeepLX) 的最佳无服务器实现，专为 Cloudflare Workers 优化设计。通过智能代理端点轮换、高级限流算法和熔断器机制，几乎完全避免了 HTTP 429 错误，提供比传统翻译 API 更高的请求速率限制和更低的网络往返时间。**现已支持 DeepL 和 Google 翻译服务。**
