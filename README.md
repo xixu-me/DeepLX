@@ -168,7 +168,9 @@ graph TB
 
 ## 🌐 Online Service
 
-**Pre-deployed Instance**: `https://dplx.xi-xu.me`
+> **⚠️ Important Notice**: The pre-deployed instance has been temporarily suspended due to excessive requests. Please [self-deploy](#-self-deployment) to continue using the service.
+
+~~**Pre-deployed Instance**: `https://dplx.xi-xu.me`~~ (Temporarily Suspended)
 
 ## 📦 Quick Start
 
